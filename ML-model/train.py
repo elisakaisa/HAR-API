@@ -1,6 +1,7 @@
 import os
 
 from model.readData import PrepareData
+from model.buildModel import BuildModel
 
 def program():
 
@@ -9,7 +10,10 @@ def program():
         print("___________________________")
         print("Train model")
         prepareData = PrepareData()
-        prepareData.prepare_data()
+        samples_per_class = prepareData.prepare_data()
+        buildModel = BuildModel(samples_per_class)
+        buildModel.build_model()
+        
 
     else:
         print("____________________________________________")

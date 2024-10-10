@@ -11,7 +11,12 @@ class PrepareData:
     def prepare_data(self):
         self.read_files()
         self.transform_data()
-        self.get_samples_per_class()
+
+        print("Check data format")
+        print(self.df.iloc[:,1800].values)
+        print(self.data)
+
+        return self.get_samples_per_class()
 
 
     def read_files(self):
@@ -27,7 +32,7 @@ class PrepareData:
         filePath = 'C:/Users/elisa/source/repos/HAR-API/ML-model/data/KU-HAR_time_domain_subsamples_20750x300.csv'
             
         self.df = pd.read_csv(filePath,  header = None, names = column_names)
-        print(self.df.info)
+        #print(self.df.info)
 
 
     def transform_data(self):
@@ -40,7 +45,7 @@ class PrepareData:
 
         # Combine the extracted data into a 3D array
         self.data = np.array(data)
-        print(self.data.shape)
+        #print(self.data.shape)
 
 
     def transform_to_one_sec_data(self):
@@ -94,6 +99,7 @@ class PrepareData:
             class_numpy_arrays[class_label] = class_samples[class_label]['class'].to_numpy()
 
         # Concatenate all NumPy arrays into a single array
-        all_together = np.concatenate(list(class_numpy_arrays.values()))
+        samples_per_class = np.concatenate(list(class_numpy_arrays.values()))
 
-        print(all_together)
+        #print(samples_per_class)
+        return samples_per_class
