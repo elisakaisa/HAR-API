@@ -11,12 +11,9 @@ class PrepareData:
     def prepare_data(self):
         self.read_files()
         self.transform_data()
+        X_train, y_train = self.prep_data_for_training()
 
-        print("Check data format")
-        print(self.df.iloc[:,1800].values)
-        print(self.data)
-
-        return self.get_samples_per_class()
+        return self.get_samples_per_class(), X_train, y_train
 
 
     def read_files(self):
@@ -45,7 +42,8 @@ class PrepareData:
 
         # Combine the extracted data into a 3D array
         self.data = np.array(data)
-        #print(self.data.shape)
+        self.data = np.transpose(self.data,(1,2,0))
+        print(self.data.shape)
 
 
     def transform_to_one_sec_data(self):
@@ -103,3 +101,13 @@ class PrepareData:
 
         #print(samples_per_class)
         return samples_per_class
+    
+
+    def prep_data_for_training(self):
+        # separate target
+        y = self.df.iloc[:,1800].values
+
+        # classes are categorical -> converted into dummies
+        y_train = pd.get_dummies(y)
+        X_train = np.array(self.data)
+        return X_train, y_train

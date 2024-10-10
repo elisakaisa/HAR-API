@@ -10,8 +10,8 @@ def program():
         print("___________________________")
         print("Train model")
         prepareData = PrepareData()
-        samples_per_class = prepareData.prepare_data()
-        buildModel = BuildModel(samples_per_class)
+        samples_per_class, X_train, y_train = prepareData.prepare_data()
+        buildModel = BuildModel(samples_per_class, X_train, y_train)
         buildModel.build_model()
         
 

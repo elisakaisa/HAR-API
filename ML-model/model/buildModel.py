@@ -2,17 +2,21 @@ import sklearn
 import numpy as np
 
 from tensorflow import keras
+import joblib
 
 class BuildModel:
 
-    def __init__(self, samples_per_class):
+    def __init__(self, samples_per_class, X_train, y_train):
         self.weights = []
         self.samples_per_class = samples_per_class
         self.model = []
+        self.X_train = X_train
+        self.y_train = y_train
 
     def build_model(self):
         self.compute_weights()
-        self.create_model()
+        model = self.create_model()
+        self.train_model(model)
 
     def compute_weights(self):
         self.weights = sklearn.utils.class_weight.compute_class_weight(class_weight = 'balanced', classes = np.unique(self.samples_per_class), y = self.samples_per_class)
@@ -34,13 +38,30 @@ class BuildModel:
         model.add(keras.layers.Dense(100, activation='relu'))
         model.add(keras.layers.Dense(50, activation='relu'))
         model.add(keras.layers.Dense(18, activation='softmax'))
-
-        # Add early stop to prevent overfitting and save weights
-        check = keras.callbacks.ModelCheckpoint('weight3s.keras', save_best_only=True, monitor='val_loss', mode='min')
-        earlystopping = keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=20, restore_best_weights = True)
-
+       
         # Compile model
         model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
         print(model.summary())
         return model
     
+    def train_model(self, model):
+         # Add early stop to prevent overfitting and save weights
+        check = keras.callbacks.ModelCheckpoint('weight3s.keras', save_best_only=True, monitor='val_loss', mode='min')
+        earlystopping = keras.callbacks.EarlyStopping(monitor='val_accuracy', patience=20, restore_best_weights = True)
+
+        #TODO: figure out if this is a good add
+        #  #Adding loss, optimizer and metrics values to the model.
+        # model.compile(  loss='categorical_crossentropy',
+        #                 optimizer='Adam',
+        #                 metrics=["accuracy"])
+
+        model.fit(self.X_train, self.y_train, batch_size = 32,
+                    epochs = 200,
+                    verbose = 1,
+                    class_weight=self.weights,
+                    validation_split = 0.2,
+                    callbacks=[check, earlystopping])
+        
+        # save model by serialization
+        joblib.dump(model, 'model.pkl')
+        print("model successfully saved")
