@@ -1,5 +1,7 @@
 import sklearn
 import numpy as np
+from dotenv import load_dotenv
+import os
 
 from tensorflow import keras
 import joblib
@@ -63,5 +65,6 @@ class BuildModel:
                     callbacks=[check, earlystopping])
         
         # save model by serialization
-        joblib.dump(model, 'model.pkl')
+        load_dotenv()
+        joblib.dump(model, os.getenv('MODEL_FILEPATH'))
         print("model successfully saved")

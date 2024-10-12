@@ -1,5 +1,7 @@
 import pandas as pd
 import numpy as np
+from dotenv import load_dotenv
+import os
 
 class PrepareData:
 
@@ -26,7 +28,8 @@ class PrepareData:
         column_names += ['class', 'length', 'serial number']
 
         #TODO: deal with filePath in nice way
-        filePath = 'C:/Users/elisa/source/repos/HAR-API/ML-model/data/KU-HAR_time_domain_subsamples_20750x300.csv'
+        load_dotenv()
+        filePath = os.getenv('DATA_FILEPATH')
             
         self.df = pd.read_csv(filePath,  header = None, names = column_names)
         #print(self.df.info)

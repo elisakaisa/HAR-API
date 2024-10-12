@@ -1,5 +1,8 @@
 import joblib
 import numpy as np
+import os
+from dotenv import load_dotenv
+
 from dto.predictionDto import PredictionDto
 
 class Prediction:
@@ -7,13 +10,15 @@ class Prediction:
     def __init__(self):
         #TODO: replace this with actual request
         # Define the batch size (this replaces None for now)
-        batch_size = 1  # or any other size you need
+        batch_size = 1  #want to have whole 3sec data batch classified as one activity
 
         # Create a random array of shape (batch_size, 300, 6) with values between -1 and 1
         self.testData = np.random.uniform(-0.02, 0.02, size=(batch_size, 300, 6))
 
     def predict(self):
-        model = joblib.load('C:/Users/elisa/source/repos/HAR-API/ML-model/model.pkl')
+        load_dotenv()
+        model = joblib.load(os.getenv('MODEL_FILEPATH'))
+        
         y_pred = model.predict(self.testData)
 
         classes_names = ['Stand', 'Sit', 'Talk-sit', 'Talk-stand','Stand-sit', 'Lay', 'Lay-stand',
