@@ -8,6 +8,11 @@ def program():
         print('Using Virtualenv')
         print("___________________________")
         print("Predict model")
+
+        # removes tensorflow warning
+        os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
+
+
         Prediction().predict()
         
         

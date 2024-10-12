@@ -1,5 +1,6 @@
 import joblib
 import numpy as np
+from dto.predictionDto import PredictionDto
 
 class Prediction:
 
@@ -18,15 +19,14 @@ class Prediction:
         classes_names = ['Stand', 'Sit', 'Talk-sit', 'Talk-stand','Stand-sit', 'Lay', 'Lay-stand',
             'Pick', 'Jump', 'Push-up', 'Sit-up', 'Walk', 'Walk backward',
             'Walk-circle', 'Run', 'Stair-up', 'Stair-down', 'Table-tennis']
-        activityPredictions = [classes_names[i] for i in np.argmax(y_pred, axis=1)]
-        most_likely_predictions = [(classes_names[np.argmax(pred)], np.max(pred)) for pred in y_pred]
-        # Use np.unique to get unique elements and their counts
-        unique_classes, counts = np.unique(activityPredictions, return_counts=True)
 
-        # Find the index of the most common class
-        most_common_index = np.argmax(counts)
-        activityPrediction = unique_classes[most_common_index]
+        activityPrediction = classes_names[np.argmax(y_pred)]
+        most_likely_predictions = np.max(y_pred)
+
+        prediction = PredictionDto(
+            activity=activityPrediction,
+            accuracy=most_likely_predictions
+        )
 
         print("Predicted activity:")
-        print(activityPrediction)
-        print(most_likely_predictions)
+        print(prediction)
