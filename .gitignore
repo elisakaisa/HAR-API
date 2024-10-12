@@ -3,3 +3,6 @@ ML-model/data
 **/venv
 **/.env
 .gitignore
+**/bin
+**/obj
+**/ActivityAPI.http
