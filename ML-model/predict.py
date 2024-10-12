@@ -1,18 +1,15 @@
 import os
 
-from model.readData import PrepareData
-from model.buildModel import BuildModel
+from prediction.prediction import Prediction
 
 def program():
 
     if os.getenv('VIRTUAL_ENV'):
         print('Using Virtualenv')
         print("___________________________")
-        print("Train model")
-        prepareData = PrepareData()
-        samples_per_class, X_train, y_train = prepareData.prepare_data()
-        # buildModel = BuildModel(samples_per_class, X_train, y_train)
-        # buildModel.build_model()
+        print("Predict model")
+        Prediction().predict()
+        
         
 
     else:
