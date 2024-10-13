@@ -33,5 +33,7 @@ class Prediction:
             accuracy=most_likely_predictions
         )
 
-        print("Predicted activity:")
-        print(prediction)
+        # print("Predicted activity:")
+        # print(prediction)
+
+        return prediction

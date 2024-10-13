@@ -12,5 +12,10 @@ message AddRequest {
 }
 
 message AddResponse {
-  int32 result = 1;
+  PredictionDto result = 1;
+}
+
+message PredictionDto {
+  string activity = 1;
+  float accuracy = 2;
 }
