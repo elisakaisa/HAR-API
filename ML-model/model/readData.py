@@ -112,7 +112,5 @@ class PrepareData:
 
         # classes are categorical -> converted into dummies
         y_train = pd.get_dummies(y)
-        print("y_train")
-        print(y_train)
         X_train = np.array(self.data)
         return X_train, y_train

@@ -11,8 +11,8 @@ def program():
         print("Train model")
         prepareData = PrepareData()
         samples_per_class, X_train, y_train = prepareData.prepare_data()
-        # buildModel = BuildModel(samples_per_class, X_train, y_train)
-        # buildModel.build_model()
+        buildModel = BuildModel(samples_per_class, X_train, y_train)
+        buildModel.build_model()
         
 
     else:
