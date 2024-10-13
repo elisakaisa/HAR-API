@@ -1,6 +1,5 @@
 using ActivityAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using Grpc.Net.Client;
 using ActivityPredictor;
 
 namespace ActivityAPI.Controllers;
@@ -10,20 +9,17 @@ namespace ActivityAPI.Controllers;
 public class ActivityController : ControllerBase 
 {
     private readonly ILogger<ActivityController> _logger;
+    private readonly ActivityPredictor.ActivityPredictor.ActivityPredictorClient _client;
 
-    public ActivityController(ILogger<ActivityController> logger)
+    public ActivityController(ILogger<ActivityController> logger, ActivityPredictor.ActivityPredictor.ActivityPredictorClient client)
     {
         _logger = logger;
+        _client = client;
     }
 
     [HttpGet(Name = "GetActivity")]
-    public async Task<Prediction> Get()
+    public async Task<IActionResult> Get()
     {
-        var channel = GrpcChannel.ForAddress("http://localhost:50051");
-
-        // Create a client for the ActivityPredictor service
-        var client = new ActivityPredictor.ActivityPredictor.ActivityPredictorClient(channel);
-
         // Create the request object
         var request = new AddRequest
         {
@@ -32,13 +28,13 @@ public class ActivityController : ControllerBase
         };
 
         // Call the Add method on the server
-        var response = await client.AddAsync(request);
+        var response = await _client.AddAsync(request);
         var prediction = new Prediction
         {
             Activity = response.Result.Activity,
             Accuracy = response.Result.Accuracy
         
         };
-        return prediction;
+        return Ok(prediction);
     }
 }
