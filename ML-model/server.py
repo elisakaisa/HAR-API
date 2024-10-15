@@ -10,7 +10,6 @@ class ActivityPredictorServicer(activityPredictor_pb2_grpc.ActivityPredictorServ
     def Add(self, request, context):
 
         data = np.frombuffer(request.data, dtype=np.float32).reshape(request.rows, request.columns)
-        print("Received array with shape:", data.shape)
 
         pred = Prediction().predict(data)
 

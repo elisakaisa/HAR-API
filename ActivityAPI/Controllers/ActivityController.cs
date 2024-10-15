@@ -20,11 +20,15 @@ public class ActivityController : ControllerBase
     [HttpGet(Name = "GetActivity")]
     public async Task<IActionResult> Get()
     {
+        //TODO: turn thids into post request
+        var testActivitydata = new ActivityData();
+
         // Create the request object
         var request = new AddRequest
         {
-            Num1 = 5,
-            Num2 = 10
+            Data = testActivitydata.Serialize(),
+            Rows = 300,
+            Columns = 6
         };
 
         // Call the Add method on the server
