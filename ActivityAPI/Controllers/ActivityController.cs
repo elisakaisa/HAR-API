@@ -1,6 +1,7 @@
 using ActivityAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using ActivityPredictor;
+using Grpc.Core;
 
 namespace ActivityAPI.Controllers;
 
@@ -23,6 +24,11 @@ public class ActivityController : ControllerBase
         //TODO: turn thids into post request
         var testActivitydata = new ActivityData();
 
+        var headers = new Metadata
+        {
+            { "api-key", "wrongapikey" }  // Add your API key here
+        };
+
         // Create the request object
         var request = new AddRequest
         {
@@ -31,14 +37,29 @@ public class ActivityController : ControllerBase
             Columns = 6
         };
 
-        // Call the Add method on the server
-        var response = await _client.AddAsync(request);
-        var prediction = new Prediction
+        try 
         {
-            Activity = response.Result.Activity,
-            Accuracy = response.Result.Accuracy
-        
-        };
-        return Ok(prediction);
+            var response = await _client.AddAsync(request, headers: headers);
+            var prediction = new Prediction
+            {
+                Activity = response.Result.Activity,
+                Accuracy = response.Result.Accuracy
+            
+            };
+            return Ok(prediction);
+
+        }
+        catch (RpcException e)
+        {
+            if (e.StatusCode == Grpc.Core.StatusCode.Unauthenticated) 
+            {
+                return Unauthorized(e.Status.Detail);
+            }
+            return StatusCode(500);
+        }
+        catch (Exception) 
+        {
+            return StatusCode(500);
+        }
     }
 }
