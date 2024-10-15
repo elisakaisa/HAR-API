@@ -25,16 +25,17 @@ namespace ActivityPredictor {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChdhY3Rpdml0eVByZWRpY3Rvci5wcm90bxIRYWN0aXZpdHlQcmVkaWN0b3Ii",
-            "KAoKQWRkUmVxdWVzdBIMCgRudW0xGAEgASgFEgwKBG51bTIYAiABKAUiPwoL",
-            "QWRkUmVzcG9uc2USMAoGcmVzdWx0GAEgASgLMiAuYWN0aXZpdHlQcmVkaWN0",
-            "b3IuUHJlZGljdGlvbkR0byIzCg1QcmVkaWN0aW9uRHRvEhAKCGFjdGl2aXR5",
-            "GAEgASgJEhAKCGFjY3VyYWN5GAIgASgCMlkKEUFjdGl2aXR5UHJlZGljdG9y",
-            "EkQKA0FkZBIdLmFjdGl2aXR5UHJlZGljdG9yLkFkZFJlcXVlc3QaHi5hY3Rp",
-            "dml0eVByZWRpY3Rvci5BZGRSZXNwb25zZWIGcHJvdG8z"));
+            "OgoKQWRkUmVxdWVzdBIMCgRkYXRhGAEgASgMEg0KBHJvd3MYrAIgASgFEg8K",
+            "B2NvbHVtbnMYBiABKAUiPwoLQWRkUmVzcG9uc2USMAoGcmVzdWx0GAEgASgL",
+            "MiAuYWN0aXZpdHlQcmVkaWN0b3IuUHJlZGljdGlvbkR0byIzCg1QcmVkaWN0",
+            "aW9uRHRvEhAKCGFjdGl2aXR5GAEgASgJEhAKCGFjY3VyYWN5GAIgASgCMlkK",
+            "EUFjdGl2aXR5UHJlZGljdG9yEkQKA0FkZBIdLmFjdGl2aXR5UHJlZGljdG9y",
+            "LkFkZFJlcXVlc3QaHi5hY3Rpdml0eVByZWRpY3Rvci5BZGRSZXNwb25zZWIG",
+            "cHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::ActivityPredictor.AddRequest), global::ActivityPredictor.AddRequest.Parser, new[]{ "Num1", "Num2" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ActivityPredictor.AddRequest), global::ActivityPredictor.AddRequest.Parser, new[]{ "Data", "Rows", "Columns" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ActivityPredictor.AddResponse), global::ActivityPredictor.AddResponse.Parser, new[]{ "Result" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ActivityPredictor.PredictionDto), global::ActivityPredictor.PredictionDto.Parser, new[]{ "Activity", "Accuracy" }, null, null, null, null)
           }));
@@ -78,8 +79,9 @@ namespace ActivityPredictor {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public AddRequest(AddRequest other) : this() {
-      num1_ = other.num1_;
-      num2_ = other.num2_;
+      data_ = other.data_;
+      rows_ = other.rows_;
+      columns_ = other.columns_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -89,27 +91,39 @@ namespace ActivityPredictor {
       return new AddRequest(this);
     }
 
-    /// <summary>Field number for the "num1" field.</summary>
-    public const int Num1FieldNumber = 1;
-    private int num1_;
+    /// <summary>Field number for the "data" field.</summary>
+    public const int DataFieldNumber = 1;
+    private pb::ByteString data_ = pb::ByteString.Empty;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Num1 {
-      get { return num1_; }
+    public pb::ByteString Data {
+      get { return data_; }
       set {
-        num1_ = value;
+        data_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
-    /// <summary>Field number for the "num2" field.</summary>
-    public const int Num2FieldNumber = 2;
-    private int num2_;
+    /// <summary>Field number for the "rows" field.</summary>
+    public const int RowsFieldNumber = 300;
+    private int rows_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
-    public int Num2 {
-      get { return num2_; }
+    public int Rows {
+      get { return rows_; }
       set {
-        num2_ = value;
+        rows_ = value;
+      }
+    }
+
+    /// <summary>Field number for the "columns" field.</summary>
+    public const int ColumnsFieldNumber = 6;
+    private int columns_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public int Columns {
+      get { return columns_; }
+      set {
+        columns_ = value;
       }
     }
 
@@ -128,8 +142,9 @@ namespace ActivityPredictor {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (Num1 != other.Num1) return false;
-      if (Num2 != other.Num2) return false;
+      if (Data != other.Data) return false;
+      if (Rows != other.Rows) return false;
+      if (Columns != other.Columns) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -137,8 +152,9 @@ namespace ActivityPredictor {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override int GetHashCode() {
       int hash = 1;
-      if (Num1 != 0) hash ^= Num1.GetHashCode();
-      if (Num2 != 0) hash ^= Num2.GetHashCode();
+      if (Data.Length != 0) hash ^= Data.GetHashCode();
+      if (Rows != 0) hash ^= Rows.GetHashCode();
+      if (Columns != 0) hash ^= Columns.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -157,13 +173,17 @@ namespace ActivityPredictor {
     #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
       output.WriteRawMessage(this);
     #else
-      if (Num1 != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Num1);
+      if (Data.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Data);
       }
-      if (Num2 != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Num2);
+      if (Columns != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Columns);
+      }
+      if (Rows != 0) {
+        output.WriteRawTag(224, 18);
+        output.WriteInt32(Rows);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -175,13 +195,17 @@ namespace ActivityPredictor {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
-      if (Num1 != 0) {
-        output.WriteRawTag(8);
-        output.WriteInt32(Num1);
+      if (Data.Length != 0) {
+        output.WriteRawTag(10);
+        output.WriteBytes(Data);
       }
-      if (Num2 != 0) {
-        output.WriteRawTag(16);
-        output.WriteInt32(Num2);
+      if (Columns != 0) {
+        output.WriteRawTag(48);
+        output.WriteInt32(Columns);
+      }
+      if (Rows != 0) {
+        output.WriteRawTag(224, 18);
+        output.WriteInt32(Rows);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -193,11 +217,14 @@ namespace ActivityPredictor {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public int CalculateSize() {
       int size = 0;
-      if (Num1 != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Num1);
+      if (Data.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Data);
       }
-      if (Num2 != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Num2);
+      if (Rows != 0) {
+        size += 2 + pb::CodedOutputStream.ComputeInt32Size(Rows);
+      }
+      if (Columns != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeInt32Size(Columns);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -211,11 +238,14 @@ namespace ActivityPredictor {
       if (other == null) {
         return;
       }
-      if (other.Num1 != 0) {
-        Num1 = other.Num1;
+      if (other.Data.Length != 0) {
+        Data = other.Data;
       }
-      if (other.Num2 != 0) {
-        Num2 = other.Num2;
+      if (other.Rows != 0) {
+        Rows = other.Rows;
+      }
+      if (other.Columns != 0) {
+        Columns = other.Columns;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -236,12 +266,16 @@ namespace ActivityPredictor {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
-          case 8: {
-            Num1 = input.ReadInt32();
+          case 10: {
+            Data = input.ReadBytes();
             break;
           }
-          case 16: {
-            Num2 = input.ReadInt32();
+          case 48: {
+            Columns = input.ReadInt32();
+            break;
+          }
+          case 2400: {
+            Rows = input.ReadInt32();
             break;
           }
         }
@@ -263,12 +297,16 @@ namespace ActivityPredictor {
           default:
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
             break;
-          case 8: {
-            Num1 = input.ReadInt32();
+          case 10: {
+            Data = input.ReadBytes();
             break;
           }
-          case 16: {
-            Num2 = input.ReadInt32();
+          case 48: {
+            Columns = input.ReadInt32();
+            break;
+          }
+          case 2400: {
+            Rows = input.ReadInt32();
             break;
           }
         }

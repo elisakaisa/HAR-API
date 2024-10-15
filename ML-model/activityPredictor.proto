@@ -7,8 +7,9 @@ service ActivityPredictor {
 }
 
 message AddRequest {
-  int32 num1 = 1;
-  int32 num2 = 2;
+  bytes data = 1;
+  int32 rows = 300;
+  int32 columns = 6;
 }
 
 message AddResponse {

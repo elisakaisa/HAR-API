@@ -1,4 +1,5 @@
 import grpc
+import numpy as np
 from concurrent import futures
 import activityPredictor_pb2
 import activityPredictor_pb2_grpc
@@ -7,9 +8,11 @@ from prediction.prediction import Prediction
 
 class ActivityPredictorServicer(activityPredictor_pb2_grpc.ActivityPredictorServicer):
     def Add(self, request, context):
-        #result = request.num1 + request.num2
 
-        pred = Prediction().predict()
+        data = np.frombuffer(request.data, dtype=np.float32).reshape(request.rows, request.columns)
+        print("Received array with shape:", data.shape)
+
+        pred = Prediction().predict(data)
 
         return activityPredictor_pb2.AddResponse(
             result=activityPredictor_pb2.PredictionDto(

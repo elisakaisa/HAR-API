@@ -15,11 +15,14 @@ class Prediction:
         # Create a random array of shape (batch_size, 300, 6) with values between -1 and 1
         self.testData = np.random.uniform(-0.02, 0.02, size=(batch_size, 300, 6))
 
-    def predict(self):
+    def predict(self, data):
         load_dotenv()
         model = joblib.load(os.getenv('MODEL_FILEPATH'))
+
+        # transform obtained data
+        dataTransformed = data.reshape(1, 300, 6)
         
-        y_pred = model.predict(self.testData)
+        y_pred = model.predict(dataTransformed)
 
         classes_names = ['Stand', 'Sit', 'Talk-sit', 'Talk-stand','Stand-sit', 'Lay', 'Lay-stand',
             'Pick', 'Jump', 'Push-up', 'Sit-up', 'Walk', 'Walk backward',
